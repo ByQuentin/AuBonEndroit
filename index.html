@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Au Bon Endroit – Bar Resto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --rouge:    #8B1A1A;
+      --rouge-vif:#C0392B;
+      --creme:    #FDF6EC;
+      --brun:     #3E2723;
+      --gris:     #F0EAEA;
+      --texte:    #2C1A1A;
+      --or:       #C9933A;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--creme);
+      color: var(--texte);
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--rouge);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 40px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.35);
+    }
+
+    header img.logo {
+      height: 56px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,.4));
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: .95rem;
+      letter-spacing: .04em;
+      margin-left: 28px;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    nav a:hover { color: var(--or); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.72) 0%, rgba(30,5,5,.55) 60%, rgba(60,10,10,.8) 100%),
+        url('TERABE.jpg')
+        center/cover no-repeat;
+    }
+
+    /* grain texture */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+      opacity: .4;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      animation: fadeUp .9s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--or);
+      color: #fff;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 2px;
+      margin-bottom: 20px;
+      animation: fadeUp .9s .1s ease both;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      color: #fff;
+      line-height: 1.1;
+      text-shadow: 0 3px 18px rgba(0,0,0,.5);
+      animation: fadeUp .9s .2s ease both;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--or);
+    }
+
+    .hero p {
+      color: rgba(255,255,255,.85);
+      font-size: 1.15rem;
+      margin-top: 16px;
+      max-width: 480px;
+      animation: fadeUp .9s .3s ease both;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeUp .9s .4s ease both;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 30px;
+      border-radius: 3px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.3); }
+
+    .btn-primary   { background: var(--rouge-vif); color: #fff; }
+    .btn-secondary { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.6); }
+    .btn-secondary:hover { background: rgba(255,255,255,.1); }
+
+    /* ── SECTION GÉNÉRIQUE ── */
+    section { padding: 80px 24px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--rouge);
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .section-sub {
+      text-align: center;
+      color: #7a5a5a;
+      margin-bottom: 50px;
+      font-size: 1rem;
+    }
+    .divider {
+      width: 60px; height: 3px;
+      background: var(--or);
+      margin: 14px auto 0;
+      border-radius: 2px;
+    }
+
+    /* ── INFOS PRATIQUES ── */
+    .infos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+    }
+
+    .info-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 32px 28px;
+      box-shadow: 0 4px 20px rgba(139,26,26,.08);
+      border-top: 4px solid var(--rouge);
+      transition: transform .25s;
+    }
+    .info-card:hover { transform: translateY(-4px); }
+
+    .info-icon {
+      font-size: 2rem;
+      margin-bottom: 14px;
+    }
+
+    .info-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--brun);
+      margin-bottom: 12px;
+    }
+
+    .info-card p, .info-card a {
+      color: #5a3a3a;
+      font-size: .97rem;
+      line-height: 1.7;
+      text-decoration: none;
+    }
+    .info-card a:hover { color: var(--rouge-vif); }
+
+    .badge-emporter {
+      display: inline-block;
+      background: var(--or);
+      color: #fff;
+      font-size: .75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-top: 10px;
+      letter-spacing: .05em;
+    }
+
+    /* ── MENU ── */
+    .menu-section { background: var(--brun); }
+    .menu-section .section-title { color: var(--or); }
+    .menu-section .section-sub   { color: rgba(255,255,255,.6); }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .menu-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 8px;
+      padding: 28px 24px;
+      transition: background .25s;
+    }
+    .menu-card:hover { background: rgba(255,255,255,.1); }
+
+    .menu-card h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--or);
+      font-size: 1.25rem;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .menu-card h3 span {
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .menu-card ul {
+      list-style: none;
+      color: rgba(255,255,255,.75);
+      font-size: .93rem;
+      line-height: 2;
+    }
+    .menu-card ul li::before {
+      content: '✦ ';
+      color: var(--or);
+      font-size: .6rem;
+    }
+
+    .menu-note {
+      text-align: center;
+      color: rgba(255,255,255,.45);
+      font-size: .85rem;
+      font-style: italic;
+      margin-top: 32px;
+    }
+
+    /* ── LOCALISATION ── */
+    .map-wrapper {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(139,26,26,.15);
+      margin-bottom: 28px;
+    }
+    .map-wrapper iframe {
+      width: 100%;
+      height: 400px;
+      display: block;
+      border: none;
+    }
+
+    .map-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 24px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--rouge);
+      color: rgba(255,255,255,.8);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: .88rem;
+    }
+    footer strong { color: #fff; }
+    footer a { color: var(--or); text-decoration: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      header { padding: 10px 20px; }
+      nav a  { margin-left: 14px; font-size: .8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <img src="ABE.png" alt="Au Bon Endroit" style="height:56px;" />
+  <nav>
+    <a href="#infos">Horaires</a>
+    <a href="#menu">Menu</a>
+    <a href="#localisation">Localisation</a>
+    <a href="tel:0473976950">📞 Appeler</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Restaurant routier & familial</div>
+    <h1>Au <em>Bon</em><br>Endroit</h1>
+    <p>Une cuisine maison généreuse, une ambiance chaleureuse, sur la RN9 dans le Puy-de-Dôme.</p>
+    <div class="hero-ctas">
+      <a href="#menu" class="btn btn-primary">🍽️ Voir le menu</a>
+      <a href="#localisation" class="btn btn-secondary">📍 Nous trouver</a>
+    </div>
+  </div>
+</section>
+
+<!-- INFOS PRATIQUES -->
+<section id="infos">
+  <div class="container">
+    <h2 class="section-title">Infos pratiques</h2>
+    <div class="divider"></div>
+    <p class="section-sub">Tout ce qu'il vous faut avant de passer</p>
+
+    <div class="infos-grid">
+
+      <div class="info-card">
+        <div class="info-icon">🕐</div>
+        <h3>Horaires d'ouverture</h3>
+        <p>
+          <strong>Lundi – Vendredi</strong><br>
+          6h30 – 15h00<br><br>
+          Fermé le week-end
+        </p>
+        <span class="badge-emporter">🥡 Vente à emporter disponible</span>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">📞</div>
+        <h3>Nous contacter</h3>
+        <p>
+          Pour toute réservation ou renseignement :<br><br>
+          <a href="tel:0473976950"><strong>04 73 97 69 50</strong></a>
+        </p>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">📍</div>
+        <h3>Adresse</h3>
+        <p>
+          16 RN 9<br>
+          63260 Saint-Genès-du-Retz<br><br>
+          <a href="https://maps.google.com/?q=16+RN+9,+63260+Saint-Genès-du-Retz" target="_blank">Voir sur Google Maps →</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu" class="menu-section">
+  <div class="container">
+    <h2 class="section-title">Notre menu</h2>
+    <div class="divider"></div>
+    <p class="section-sub">Une cuisine du terroir, faite maison, à prix honnêtes</p>
+
+    <div class="menu-grid">
+
+      <div class="menu-card">
+        <h3>Menu du jour <span>20€</span></h3>
+        <ul>
+          <li>Entrée du jour</li>
+          <li>Plat du jour</li>
+          <li>Dessert du jour</li>
+          <li>Pain inclus</li>
+        </ul>
+      </div>
+
+      <div class="menu-card">
+        <h3>Boissons <span style="font-size:.9rem;color:rgba(255,255,255,.5)">à la carte</span></h3>
+        <ul>
+          <li>Café, thé, chocolat</li>
+          <li>Soft drinks</li>
+          <li>Bières pression & bouteille</li>
+          <li>Vins au verre ou carafe</li>
+        </ul>
+      </div>
+
+      <div class="menu-card">
+        <h3>À emporter <span style="font-size:.9rem;color:rgba(255,255,255,.5)">sur commande</span></h3>
+        <ul>
+          <li>Plat du jour à emporter</li>
+          <li>Sandwichs & snacking</li>
+          <li>Appelez pour réserver</li>
+        </ul>
+      </div>
+
+    </div>
+    <p class="menu-note">La carte change chaque jour selon les arrivages. Appelez-nous pour connaître le menu du jour.</p>
+  </div>
+</section>
+
+<!-- LOCALISATION -->
+<section id="localisation">
+  <div class="container">
+    <h2 class="section-title">Où nous trouver ?</h2>
+    <div class="divider"></div>
+    <p class="section-sub">Sur la RN9 – Saint-Genès-du-Retz (63)</p>
+
+    <div class="map-wrapper">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2793.0!2d3.2051183!3d46.0645296!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f72965c0d301f9%3A0xcae8b42e61cc606b!2sAu%20Bon%20Endroit!5e0!3m2!1sfr!2sfr!4v1234567890"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+    <div class="map-actions">
+      <a href="https://www.google.com/maps/dir/?api=1&destination=16+RN+9,+63260+Saint-Gen%C3%A8s-du-Retz"
+         target="_blank"
+         class="btn btn-primary">
+        🧭 Lancer le GPS
+      </a>
+      <a href="tel:0473976950" class="btn" style="background:var(--brun);color:#fff;">
+        📞 04 73 97 69 50
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>Au Bon Endroit</strong> – Bar Resto</p>
+  <p style="margin-top:6px;">16 RN 9 · 63260 Saint-Genès-du-Retz · <a href="tel:0473976950">04 73 97 69 50</a></p>
+  <p style="margin-top:10px;font-size:.8rem;opacity:.5;">Site réalisé par <a href="https://byquentin.42web.io">ByQuentin</a></p>
+</footer>
+
+</body>
+</html>
